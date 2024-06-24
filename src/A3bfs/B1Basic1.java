@@ -1,0 +1,44 @@
+package A3bfs;
+
+import java.util.*;
+
+public class B1Basic1 {
+    static int[][] arr;
+    static boolean[] visit;
+    static List<List<Integer>> adjList;
+    static Queue<Integer> queue;
+
+    public static void main(String[] args) {
+        arr = new int[][]{{0, 1}, {0, 2}, {1, 3}, {2, 3}, {2, 4}};
+        visit = new boolean[arr.length];
+        Arrays.fill(visit,true);
+        adjList = new ArrayList<>();
+
+        for(int i = 0 ; i < arr.length; i++) adjList.add(new ArrayList<>());
+
+        for(int i = 0 ; i < arr.length; i++) {
+            for (int[] j : arr)
+                if (j[0] == i) adjList.get(i).add(j[1]);
+        }
+
+        for(int[] a : arr){
+            adjList.get(a[0]).add(a[1]);
+        }
+
+        queue = new LinkedList<>();
+        queue.add(0);
+        while(!queue.isEmpty()){
+            int temp = queue.poll();
+//            if(visit[temp]) {
+            System.out.println(temp);
+//                visit[temp] = false;
+//            }
+            for(int target : adjList.get(temp)){
+                if(visit[target]) {
+                    queue.add(target);
+                    visit[target]= false;
+                }
+            }
+        }
+    }
+}
